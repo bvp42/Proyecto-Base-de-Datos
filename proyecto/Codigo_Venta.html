@@ -1,0 +1,109 @@
+<html lang="es">
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Venta</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="estilos.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <ul id="navbar">
+        <li class="elementos"><a class="links" href="Registro_Prod.php">Registro Productos</a></li>
+        <li class="elementos"><a class="links" href="Registro_Emp.php">Registro Empleados</a></li>
+        <li class="elementos"><a class="links" href="Venta.html">Venta</a></li>
+        <li class="elementos" style="float:right"><a class="links" href="Acerca.php">Acerca de</a></li>
+    </ul>
+    <div class="ancho">
+        <h1 id="titulo">Venta</h1>
+    </div>
+    <div class="ancho">
+        <form id="formulario">
+            <br>
+            <label for="empleado">Empleado</label><input type="number" name="empleado" id="Empleado" min="1" step="1"
+                required>
+            <br><br>
+            <label>Codigo del producto</label><input type="number" name="codigo" id="Codigo" min="10000000" step="1"
+                required>
+            <br><br>
+            <label>Cantidad</label> <input type="number" name="cantidad" id="Cantidad" min="1" step="1" required>
+            <br><br>
+            <input type="submit" value="Agregar" name="agregar" id="sub">
+
+        </form>
+    </div>
+    <div id="listaProductos">
+    </div>
+    <div>
+        <table id="productos"></table>
+        <br>
+        <table id="total"></table>
+        <br>
+        <div id="botones" style="text-align: center;">
+        </div>
+    </div>
+    <script>
+        var numTicket;
+        var bandera =true;
+        document.getElementById('sub').onclick = () => {
+            
+            $.post("Ticket.php", function (data) {
+                numTicket=parseInt(data);
+                console.log(typeof(numTicket));
+                console.log("Data Loaded: " + numTicket);
+            });
+            if(numTicket>=0 && bandera){
+                console.log(numTicket);
+            $("#listaProductos").append('<h4>Numero de Ticket:' + (numTicket+1) + '</h4>');
+            bandera=false;
+            }
+        };
+        var datosConsulta;
+        var contador = 0;
+        var precio = 0
+
+        $('#formulario').submit(function (e) {
+            const postData = {
+                empleado: $('#Empleado').val(),
+                codigo: $('#Codigo').val(),
+                cantidad: $('#Cantidad').val(),
+                contador: contador
+            };
+
+            $.post('VentaBackEnd.php', postData, function (respuesta) {
+                datosConsulta = (respuesta);
+                console.log(datosConsulta);
+
+                $('#formulario').trigger('reset');
+                if (datosConsulta.length > 1) {
+                    contador = contador + 1;
+                }
+                if (contador == 1) {
+                    $("#listaProductos").append('<h2>Lista de Productos Agregados</h2>');
+                    $('#productos').append("<tr><th>Numero</th><th>Codigo</th><th>Nombre del producto</th><th>Cantidad Comprada</th><th>Precio Unitario</th><th>Precio por producto</th></tr>");
+                    $('#total').append("<th>Total productos vendidos</th><th>Cantidad de Productos</th><th>Precio a pagar</th></tr>");
+                    $('#botones').append('<button id="finalizar" type="submit">Finalizar</button><button id="cancelar" type="submit">Cancelar</button>');
+                }
+
+                var cnt = 1;
+
+                $('#productos').append(datosConsulta);
+                var aux = '<tr><td>' + contador + '</td><td>' + cnt + '</td><td>' + 10 + '</td>';
+
+                if (contador == 1) {
+                    $('#total').append(aux);
+                } else {
+                    console.log(document.getElementById('formulario'));
+                }
+
+            });
+            e.preventDefault();
+        });
+
+    </script>
+    <div>
+    </div>
+</body>
+
+</html>

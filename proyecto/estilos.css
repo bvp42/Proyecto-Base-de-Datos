@@ -1,0 +1,84 @@
+#navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+body{
+    background-color: lightgrey;
+}
+.elementos{
+    display: inline;
+    float:left;
+}
+
+.links{
+    display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.links:hover{
+    background-color: #111;
+}
+
+#titulo{
+    color: white;
+    background-color: #111;
+    text-align: center;
+    width :447px;
+}
+#box{
+    background-color: #111;
+    width :447px;
+}
+h2{
+    color: white;
+    background-color: #111;
+    text-align: center;
+}
+
+#formulario{
+    background-color: rgba(54, 53, 53, 0.567);
+    width :447px;
+    text-align: center;
+}
+
+label{
+    color: white;
+    font-size: 18px;
+    display: inline-block;
+  text-align: right;
+  clear: left;
+  width: 160px;
+  text-align: right;
+}
+input {
+    display: inline-block;
+    text-align: center;
+}
+
+.ancho{
+    padding-left: 25em;
+    padding-right: 25em;
+}
+
+table{
+    margin-left: 25em;
+   width :447px;
+    background-color: #111;
+    text-align: center;
+    color: white;
+}
+
+td{
+    color: white;
+   
+}
+
+th{
+    color:white;
+}
